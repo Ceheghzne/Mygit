@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript">
+        function clickSendAjax(){
+            var xhttp;
+            if(window.XMLHttpRequest){
+                xhttp=new XMLHttpRequest();
+            }else{
+                xhttp=new ActiveXObject("Microsoft.XMLHTTP")
+            }
+            xhttp.open("GET","ajax.json",true);
+            xhttp.send();
+            var count=1;
+            xhttp.onreadystatechange=function(){
+                if(xhttp.readyState==4 && xhttp.status==200){
+                    var DataArr=JSON.parse(xhttp.responseText);
+                    var taBle=document.createElement("table");
+                    document.getElementsByTagName("body")[0].appendChild(taBle);
+                    var th=document.createElement("thead");
+                    var thStr="<tr><th>姓名</th><th>年龄</th><th>班级</th><th>电话</th></tr>";
+//                    console.log(thStr);
+                    th.innerHTML=thStr;
+                    document.getElementsByTagName("table")[0].appendChild(th);
+                    var tBody=document.createElement("tbody");
+                    tBody.style.textAlign="center";
+                    taBle.appendChild(tBody);
+                    var str="";
+                    for(var i=5;i<10;i++){
+                        console.log(DataArr[i].name);
+                        str+="<tr><td>"+DataArr[i].name+"</td><td>"+DataArr[i].age+"</td><td>"+DataArr[i].class+"</td><td>"+DataArr[i].tel+"</td></tr>"
+                    }
+                    tBody.innerHTML=str;
+                }
+
+            }
+        }
+    </script>
+</head>
+<body>
+<input type="button" onclick="clickSendAjax()" value="ajax按钮"/>
+<!--<table></table>-->
+</body>
+</html>
